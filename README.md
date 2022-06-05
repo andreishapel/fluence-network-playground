@@ -1,1 +1,1 @@
-# fluence-network-playground
+# Fluence Network Playground

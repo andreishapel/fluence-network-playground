@@ -1,0 +1,22 @@
+{
+	"name": "www",
+	"version": "1.0.0",
+	"type": "module",
+	"scripts": {
+		"dev": "svelte-kit dev",
+		"build": "svelte-kit build",
+		"package": "svelte-kit package",
+		"preview": "svelte-kit preview",
+		"prepare": "svelte-kit sync"
+	},
+	"devDependencies": {
+		"@sveltejs/adapter-auto": "next",
+		"@sveltejs/kit": "next",
+		"svelte": "^3.44.0"
+	},
+	"dependencies": {
+		"bulma": "^0.9.4",
+		"svelte-kit": "^1.0.0",
+		"svelte-routing": "^1.6.0"
+	}
+}
