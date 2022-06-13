@@ -1,4 +1,5 @@
 const path = require('path');
+const autoPreprocess =  require('svelte-preprocess');
 const { ProvidePlugin } = require('webpack');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 
@@ -14,7 +15,7 @@ module.exports = {
     filename: 'main.js',
   },
   resolve: {
-    extensions: ['.js', '.svelte'],
+    extensions: ['.js', '.svelte', '.wasm'],
     mainFields: ['svelte', 'browser', 'module', 'main'],
   },
   module: {
@@ -23,6 +24,19 @@ module.exports = {
         test: /\.svelte$/,
         use: {
           loader: 'svelte-loader',
+          options: {
+            preprocess: autoPreprocess(),
+          },
+        },
+      },
+      {
+        test: /\.js$/,
+        exclude: /(node_modules|bower_components)/,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: ['@babel/preset-env'],
+          },
         },
       },
       {
@@ -30,6 +44,14 @@ module.exports = {
         use: [
           'style-loader',
           'css-loader',
+        ],
+      },
+      {
+        test: /\.scss$/,
+        use: [
+          'style-loader',
+          'css-loader',
+          'sass-loader',
         ],
       },
     ],
