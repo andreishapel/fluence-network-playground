@@ -1,6 +1,6 @@
 <script>
-  import { clickOutside } from '../../helpers/DOM';
-  import NetworkConnectorDropdownItem from './network-connector-dropdown-item';
+  import { clickOutside } from '@helpers/DOM';
+  import NetworkConnectorDropdownItem from '@components/network-connector/network-connector-dropdown-item';
 
   export let peers;
   export let onSelect;
@@ -9,13 +9,8 @@
   let isDropdownOpen = false;
   let value;
 
-  const handleOpen = () => {
-    isDropdownOpen = !isDropdownOpen;
-  };
-
-  const closeDropdown = () => {
-    isDropdownOpen = false;
-  };
+  const handleOpen = () => isDropdownOpen = !isDropdownOpen;
+  const closeDropdown = () => isDropdownOpen = false;
 
   const handleSelect = (peer) => {
     const { peerId } = peer;

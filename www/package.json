@@ -4,13 +4,11 @@
 	"scripts": {
 		"postinstall": "copy-marine public",
 		"build": "webpack --config webpack.config.js",
-		"dev": "webpack-dev-server"
+		"start:dev": "webpack-dev-server"
 	},
 	"dependencies": {
-		"@babel/preset-env": "^7.18.2",
 		"@fluencelabs/fluence": "^0.23.0",
 		"@fluencelabs/fluence-network-environment": "^1.0.13",
-		"babel-loader": "^8.2.5",
 		"bulma": "^0.9.4",
 		"normalize.css": "^8.0.1",
 		"process": "^0.11.10",
@@ -19,10 +17,10 @@
 		"svelte-routing": "^1.6.0"
 	},
 	"devDependencies": {
-		"@fluencelabs/aqua": "^0.7.3-315",
-		"@fluencelabs/aqua-lib": "^0.5.1",
+		"@babel/preset-env": "^7.18.2",
 		"@sveltejs/adapter-auto": "next",
 		"@sveltejs/kit": "next",
+		"babel-loader": "^8.2.5",
 		"copy-webpack-plugin": "^11.0.0",
 		"css-loader": "^6.7.1",
 		"node-sass": "^7.0.1",

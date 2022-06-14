@@ -34,10 +34,10 @@ export default new class NetworkStore extends Store {
       connectTo: multiaddr,
     });
     this.updateStatus();
-  };
+  }
 
   async disconnect() {
     await Fluence.stop();
     this.reset();
   }
-};
+}();

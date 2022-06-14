@@ -6,7 +6,7 @@ export const clickOutside = (node) => {
       const clickOutsideEvent = new CustomEvent('clickOutside', node);
       node.dispatchEvent(clickOutsideEvent);
     }
-  }
+  };
 
   document.addEventListener('click', handleClick, true);
 

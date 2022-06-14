@@ -1,11 +1,12 @@
 export default class Store {
   constructor(store) {
     this.store = store;
-    this.defaultStore = Object.assign({}, store);
+    this.defaultStore = { ...store };
   }
 
   reset() {
-    const { store, defaultStore } = this;
+    const { store } = this;
+    const { defaultStore } = this;
     store.set(defaultStore);
   }
-};
+}

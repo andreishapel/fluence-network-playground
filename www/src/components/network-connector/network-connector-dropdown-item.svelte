@@ -3,9 +3,7 @@
   export let onSelect;
   export let onDropdownItemRender;
 
-  const handleSelect = () => {
-    onSelect(peer);
-  };
+  const handleSelect = () => onSelect(peer);
 </script>
 
 <p class="dropdown-item" on:click={handleSelect}>

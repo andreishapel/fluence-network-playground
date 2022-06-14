@@ -1,37 +1,21 @@
 <script>
   import { onMount, onDestroy } from 'svelte';
   import { krasnodar } from '@fluencelabs/fluence-network-environment';
-  import NetworkStore from '../../store/network.store';
-  import NetworkConnectorConnectButton from './network-connector-connect-button.svelte';
-  import NetworkConnectorDropdown from './network-connector-dropdown';
+  import NetworkStore from '@store/network.store';
+  import NetworkConnectorConnectButton from '@components/network-connector/network-connector-connect-button.svelte';
+  import NetworkConnectorDropdown from '@components/network-connector/network-connector-dropdown';
 
   const statusPooling = NetworkStore.useStatusPooling();
   const peers = Object.values(krasnodar);
 
+  $: networkStatus = NetworkStore.store;
+  $: connectionStatus = ($networkStatus.isConnected) ? 'Connected' : 'Disconnected';
   let selectedPeer;
 
-  $: networkStatus = NetworkStore.store;
-
-  const handleDropdownItemRender = (peer) => {
-    const { peerId } = peer;
-    return peerId;
-  };
-
-  const selectPeer = (peer) => {
-    selectedPeer = peer;
-  };
-
-  const connect = () => {
-    if (selectedPeer) {
-      NetworkStore.connectToPeer(selectedPeer);
-    }
-  };
-
-  const disconnect = () => {
-    if (selectedPeer) {
-      NetworkStore.disconnect();
-    }
-  };
+  const handleDropdownItemRender = (peer) => peer.peerId;
+  const selectPeer = (peer) => selectedPeer = peer;
+  const connect = () => selectedPeer && NetworkStore.connectToPeer(selectedPeer);
+  const disconnect = () => selectedPeer && NetworkStore.disconnect();
 
   onMount(() => NetworkStore.useStatusPooling());
   onDestroy(() => statusPooling());
@@ -42,7 +26,7 @@
     Connect to the network
   </header>
   <p class="is-size-5 connection-status" class:is-active={$networkStatus.isConnected}>
-    Connection: {($networkStatus.isConnected) ? 'Connected' : 'Disconnected'}
+    Connection: {connectionStatus}
   </p>
   {#if $networkStatus.isInitialized && $networkStatus.isConnected}
     <aside>
@@ -75,6 +59,8 @@
     margin: 75px auto;
     width: 675px;
   }
+
+  .abc {}
 
   .header {
     text-align: center;

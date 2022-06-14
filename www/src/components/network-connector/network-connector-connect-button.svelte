@@ -15,12 +15,7 @@
   };
 </script>
 
-<button
-  class="button is-primary"
-  class:is-active={!isConnected}
-  class:is-danger={isConnected}
-  on:click={handleClick}
->
+<button class="button is-primary" class:is-active={!isConnected} class:is-danger={isConnected} on:click={handleClick}>
   {title}
 </button>
 
