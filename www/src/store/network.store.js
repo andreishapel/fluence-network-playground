@@ -19,10 +19,10 @@ export default new class NetworkStore extends Store {
     this.store.set(status);
   }
 
-  useStatusPooling() {
+  useStatusPooling(timeout = 20000) {
     const statusPooling = setInterval(() => {
       this.updateStatus();
-    }, 20000);
+    }, timeout);
 
     return () => clearInterval(statusPooling);
   }

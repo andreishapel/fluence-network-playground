@@ -2,6 +2,7 @@
   import { onMount, onDestroy } from 'svelte';
   import { krasnodar } from '@fluencelabs/fluence-network-environment';
   import NetworkStore from '@store/network.store';
+  import Block from '@components/layout/block/block.svelte';
   import NetworkConnectorConnectButton from '@components/network-connector/network-connector-connect-button.svelte';
   import NetworkConnectorDropdown from '@components/network-connector/network-connector-dropdown';
 
@@ -12,8 +13,8 @@
   $: connectionStatus = ($networkStatus.isConnected) ? 'Connected' : 'Disconnected';
   let selectedPeer;
 
-  const handleDropdownItemRender = (peer) => peer.peerId;
-  const selectPeer = (peer) => selectedPeer = peer;
+  const handleDropdownItemRender = peer => peer.peerId;
+  const selectPeer = peer => selectedPeer = peer;
   const connect = () => selectedPeer && NetworkStore.connectToPeer(selectedPeer);
   const disconnect = () => selectedPeer && NetworkStore.disconnect();
 
@@ -21,10 +22,7 @@
   onDestroy(() => statusPooling());
 </script>
 
-<section class="network-connector">
-  <header class="header is-size-4">
-    Connect to the network
-  </header>
+<Block class="network-connector" title="Connect to the network">
   <p class="is-size-5 connection-status" class:is-active={$networkStatus.isConnected}>
     Connection: {connectionStatus}
   </p>
@@ -50,21 +48,10 @@
     <NetworkConnectorDropdown peers={peers} onSelect={selectPeer} onDropdownItemRender={handleDropdownItemRender} />
     <NetworkConnectorConnectButton networkStatus={$networkStatus} handleConnect={connect} handleDisconnect={disconnect} />
   </section>
-</section>
+</Block>
 
 <style lang="scss">
   @import "src/styles/variables";
-
-  .network-connector {
-    margin: 75px auto;
-    width: 675px;
-  }
-
-  .abc {}
-
-  .header {
-    text-align: center;
-  }
 
   .connection-status {
     color: $color-red;

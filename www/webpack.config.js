@@ -37,17 +37,16 @@ module.exports = {
     rules: [
       {
         test: /\.(html|svelte)$/,
-        exclude: /node_modules/,
         use: {
           loader: 'svelte-loader',
           options: {
             preprocess: autoPreprocess(),
+            emitCss: true,
           },
         },
       },
       {
         test: /\.js$/,
-        exclude: /node_modules/,
         use: {
           loader: 'babel-loader',
           options: {
@@ -91,5 +90,6 @@ module.exports = {
   ],
   devServer: {
     hot: true,
+    historyApiFallback: true,
   },
 };
