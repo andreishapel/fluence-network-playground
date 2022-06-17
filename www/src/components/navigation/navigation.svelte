@@ -1,24 +1,26 @@
 <script>
-  import lodash from 'lodash';
+  import get from 'lodash/get';
   import { onMount } from 'svelte';
   import { Router, Route } from 'svelte-routing';
   import { globalHistory } from 'svelte-routing/src/history';
+  import NetworkStore from '@store/network.store';
   import NavigationLink from '@components/navigation/navigation-link.svelte';
-  import PeerToPeer from '@components/peer-to-peer/peer-to-peer.svelte';
+  import Chat from '@components/chat/chat.svelte';
 
   const links = [{
     title: 'Chat',
     href: '/chat',
   }, {
     title: 'Hashing',
-    href: 'hash',
+    href: '/hash',
   }];
 
+  $: isConnectionActive = NetworkStore.isConnectionActive();
   let currentPath = window.location.pathname;
 
   onMount(() => {
     globalHistory.listen((params) => {
-      currentPath = lodash.get(params, ['location', 'pathname']);
+      currentPath = get(params, ['location', 'pathname']);
     });
   });
 </script>
@@ -26,18 +28,30 @@
 <Router>
   <nav class="breadcrumb">
     <ul class="list">
-      {#each links as link}
-        <NavigationLink href={link.href} title={link.title} pathname={currentPath} />
+      {#each links as {href, title}}
+        <NavigationLink href={href} title={title} pathname={currentPath} />
       {/each}
     </ul>
   </nav>
   <aside>
-    <Route path="chat" component={PeerToPeer} />
+    {#if $isConnectionActive}
+      <Route path="chat" component={Chat} />
+    {:else}
+      <p class="error">Please connect to the network first</p>
+    {/if}
   </aside>
 </Router>
 
 <style lang="scss">
+  @import "src/styles/variables";
+
   .list {
     justify-content: center;
+  }
+
+  .error {
+    color: $color-red;
+    font-size: 18px;
+    text-align: center;
   }
 </style>

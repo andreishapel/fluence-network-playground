@@ -1,5 +1,5 @@
 <script>
-  import { clickOutside } from '@helpers/DOM';
+  import { clickOutside } from '@helpers/dom';
   import NetworkConnectorDropdownItem from '@components/network-connector/network-connector-dropdown-item';
 
   export let peers;

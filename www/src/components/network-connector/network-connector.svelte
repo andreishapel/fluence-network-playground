@@ -10,6 +10,7 @@
   const peers = Object.values(krasnodar);
 
   $: networkStatus = NetworkStore.store;
+  $: isConnectionActive = NetworkStore.isConnectionActive();
   $: connectionStatus = ($networkStatus.isConnected) ? 'Connected' : 'Disconnected';
   let selectedPeer;
 
@@ -26,7 +27,7 @@
   <p class="is-size-5 connection-status" class:is-active={$networkStatus.isConnected}>
     Connection: {connectionStatus}
   </p>
-  {#if $networkStatus.isInitialized && $networkStatus.isConnected}
+  {#if $isConnectionActive}
     <aside>
       <span class="network-status-property">
         Peer id:

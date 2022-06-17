@@ -10,7 +10,6 @@ const outputPath = path.resolve(__dirname, 'dist');
 const aliasSveltePath = path.resolve('node_modules', 'svelte');
 const aliasComponentsPath = path.resolve(__dirname, 'src', 'components');
 const aliasHelpersPath = path.resolve(__dirname, 'src', 'helpers');
-const aliasPagesPath = path.resolve(__dirname, 'src', 'pages');
 const aliasStorePath = path.resolve(__dirname, 'src', 'store');
 const aliasTypesPath = path.resolve(__dirname, 'src', 'types');
 
@@ -28,7 +27,6 @@ module.exports = {
       svelte: aliasSveltePath,
       '@components': aliasComponentsPath,
       '@helpers': aliasHelpersPath,
-      '@pages': aliasPagesPath,
       '@store': aliasStorePath,
       '@types': aliasTypesPath,
     },

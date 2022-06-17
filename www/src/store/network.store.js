@@ -1,4 +1,5 @@
 import { writable } from 'svelte/store';
+import { Observable } from 'rxjs';
 import { Fluence } from '@fluencelabs/fluence';
 import Store from './store';
 
@@ -17,6 +18,16 @@ export default new class NetworkStore extends Store {
   updateStatus() {
     const status = Fluence.getStatus();
     this.store.set(status);
+  }
+
+  isConnectionActive() {
+    return new Observable((subscriber) => {
+      store.subscribe((data) => {
+        const { isInitialized, isConnected } = data;
+        const isActive = (isInitialized && isConnected) || false;
+        subscriber.next(isActive);
+      });
+    });
   }
 
   useStatusPooling(timeout = 20000) {

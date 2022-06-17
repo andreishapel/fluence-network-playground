@@ -1,6 +1,10 @@
 # Build
 dist
 node_modules
+_aqua
+public/avm.wasm
+public/marine-js.wasm
+public/marine-js.web.js
 
 # Logs
 logs

@@ -1,11 +1,12 @@
 <script>
   export let label;
   export let name;
+  export let isDisabled = false;
 </script>
 
 <div class={$$props.class}>
   <label class="label" for={name}>{label}</label>
-  <input class="input" placeholder={label} type="text">
+  <input class="input" name={name} placeholder={label} type="text" disabled={isDisabled}>
 </div>
 
 <style lang="scss">
