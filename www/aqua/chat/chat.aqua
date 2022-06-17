@@ -1,9 +1,9 @@
 import "@fluencelabs/aqua-lib/builtin.aqua"
 
 service Chat("Chat"):
-  say(from: PeerId) -> string
+  message(from: PeerId, message: string) -> string
 
-func say(targetPeerId: PeerId, targetRelayPeerId: PeerId) -> string:
+func sendMessage(targetPeerId: PeerId, targetRelayPeerId: PeerId, message: string) -> string:
   on targetPeerId via targetRelayPeerId:
-    res <- Chat.say(%init_peer_id%)
+    res <- Chat.message(%init_peer_id%, message)
   <- res

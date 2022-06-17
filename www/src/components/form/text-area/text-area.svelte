@@ -1,11 +1,13 @@
 <script>
   export let label;
   export let name;
+  export let value;
+  export let readonly = false;
 </script>
 
 <div class={$$props.class}>
   <label class="label" for={name}>{label}</label>
-  <input class="input" name={name} placeholder={label} type="text">
+  <textarea class="textarea" name={name} placeholder={label} type="text" readonly={readonly} bind:value></textarea>
 </div>
 
 <style lang="scss">
