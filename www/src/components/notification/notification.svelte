@@ -1,6 +1,6 @@
 <script>
   export let title;
-  export let isSuccess = true;
+  export let isSuccess = false;
   export let isInfo = false;
   export let isError = false;
   export let isOpen = false;

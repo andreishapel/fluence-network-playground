@@ -63,7 +63,7 @@
 
 <Block class="chat" title="Cryptography" size="large">
   <Notification title="Description" isInfo={true} isOpen={true}>
-    <p>Demonstrates how to use dedicated service on the network to hash a text provided, based on the algorithm selected</p>
+    <p>Demonstrates how to use dedicated service on the network to hash a text provided, based on the algorithm selected.</p>
     <p>To use it, enter "serviceId" you received after deployment, text to hash, and choose cryptographic algorithm.</p>
   </Notification>
   <Notification title="Result" isSuccess={true} isOpen={isResponseNotificationOpen}>
