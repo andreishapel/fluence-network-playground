@@ -6,13 +6,14 @@
   import NetworkStore from '@store/network.store';
   import NavigationLink from '@components/navigation/navigation-link.svelte';
   import Chat from '@components/chat/chat.svelte';
+  import Crypto from '@components/crypto/crypto.svelte';
 
   const links = [{
     title: 'Chat',
     href: '/chat',
   }, {
-    title: 'Hashing',
-    href: '/hash',
+    title: 'Cryptography',
+    href: '/crypto',
   }];
 
   $: isConnectionActive = NetworkStore.isConnectionActive();
@@ -36,6 +37,7 @@
   <aside>
     {#if $isConnectionActive}
       <Route path="chat" component={Chat} />
+      <Route path="crypto" component={Crypto} />
     {:else}
       <p class="error">Please connect to the network first</p>
     {/if}

@@ -1,6 +1,8 @@
 {
 	"name": "www",
 	"version": "1.0.0",
+	"author": "Andrei Shapel <mail@shapel.me>",
+	"description": "Proof of concept of Fluence Network",
 	"scripts": {
 		"postinstall": "copy-marine public",
 		"prestart": "npm run compile-aqua",

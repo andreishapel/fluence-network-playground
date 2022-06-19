@@ -1,0 +1,18 @@
+import "@fluencelabs/aqua-lib/builtin.aqua"
+
+const NODE_PEER_ID ?= "12D3KooWFEwNWcHqi9rtsmDhsYcDbRUCDXH84RC4FW6UfsFWaoHi"
+const SERVICE_ID ?= "5ad9eea7-7061-4b45-b992-5911aebfe45c"
+
+data Response:
+  algorithm: string
+  hashed_text: string
+  original_text: string
+
+service Crypto("Crypto"):
+  hash_text(algorithm: string, text: string) -> Response
+
+func hashText(nodeId: string, serviceId: string, algorithm: string, text: string) -> Response:
+  on nodeId:
+    Crypto serviceId
+    response <- Crypto.hash_text(algorithm, text)
+  <- response

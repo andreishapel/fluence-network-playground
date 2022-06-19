@@ -1,0 +1,11 @@
+{
+  "crypto": {
+    "modules": [
+      {
+        "name": "crypto",
+        "path": "./artifacts/crypto.wasm",
+        "logger_enabled": [true]
+      }
+    ]
+  }
+}

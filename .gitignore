@@ -1,6 +1,8 @@
 # Build
 dist
 node_modules
+target
+artifacts
 _aqua
 public/avm.wasm
 public/marine-js.wasm

@@ -2,46 +2,51 @@
   import { onMount } from 'svelte';
   import { Observable } from 'rxjs';
   import Block from '@components/layout/block/block.svelte';
-  import Form from '@components/form/form/form.svelte';
   import Field from '@components/form/field/field.svelte';
+  import Form from '@components/form/form/form.svelte';
   import TextArea from '@components/form/text-area/text-area.svelte';
-  import { registerChat, sendMessage } from '../../_aqua/chat/chat';
+  import Notification from '@components/notification/notification.svelte';
+  import { registerChat, sendMessage } from '@aqua/chat/chat';
 
   let messages = new Observable();
+  let errorMessage;
 
   const send = async (data) => {
-    const { targetPeerId, targetRelayPeerId, messageFromYou } = data;
-    await sendMessage(targetPeerId, targetRelayPeerId, messageFromYou);
+    try {
+      const { targetPeerId, targetRelayPeerId, messageFromYou } = data;
+      await sendMessage(targetPeerId, targetRelayPeerId, messageFromYou);
+    } catch ({ message }) {
+      errorMessage = message;
+    }
   };
 
   onMount(() => {
-    registerChat({
-      message: (from, text) => {
-        messages = new Observable((observer) => {
+    messages = new Observable((observer) => {
+      registerChat({
+        message: (from, text) => {
           const timeStamp = new Date().toUTCString();
           const toPrint = `Message: ${text}\nFrom: ${from}\nWhen: ${timeStamp}\n`;
           observer.next(toPrint);
-        });
-      },
+        },
+      });
     });
   });
 </script>
 
-<Block class="chat" title="P2P Chat" size="medium">
+<Block class="chat" title="P2P Chat" size="large">
+  <Notification class="notification-error" title="Error" isError={true} isOpen={!!errorMessage}>
+    {errorMessage}
+  </Notification>
   <Form onSubmit={send}>
-    <Field label="Target peer id" name="targetPeerId" />
-    <Field label="Target relay peer id" name="targetRelayPeerId" />
-    <Field label="Message from you" name="messageFromYou" />
-    <TextArea label="Message to you" name="messageToYou1" value={$messages} readonly={true}></TextArea>
+    <Field label="Target peer id" name="targetPeerId" id="targetPeerId" />
+    <Field label="Target relay peer id" name="targetRelayPeerId" id="targetRelayPeerId" />
+    <Field label="Message from you" name="messageFromYou" id="messageFromYou" />
+    <TextArea label="Message to you" name="messageToYou" id="messageToYou" value={$messages} readonly={true}></TextArea>
     <button class="button is-primary">Send</button>
   </Form>
 </Block>
 
 <style lang="scss">
-  :global(.textarea)  {
-    font-size: 12px;
-  }
-
   .button {
     width: 200px;
     margin: 10px auto;
