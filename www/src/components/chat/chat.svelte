@@ -34,7 +34,12 @@
 </script>
 
 <Block class="chat" title="P2P Chat" size="large">
-  <Notification class="notification-error" title="Error" isError={true} isOpen={!!errorMessage}>
+  <Notification title="Description" isInfo={true} isOpen={true}>
+    <p>Demonstrates how to communicate between two peers in a local browser using Peer-to-Peer technology.</p>
+    <p>To use it, open two tabs and connect to the same network on both.</p>
+    <p>Then, use "peerId" as "targetPeerId" and "relayPeerId" as "targetRelayPeerId" from the second tab to send a message to the first tab and vise-versa.</p>
+  </Notification>
+  <Notification title="Error" isError={true} isOpen={!!errorMessage}>
     {errorMessage}
   </Notification>
   <Form onSubmit={send}>

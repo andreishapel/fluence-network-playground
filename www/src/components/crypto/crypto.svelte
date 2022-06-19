@@ -62,12 +62,16 @@
 </script>
 
 <Block class="chat" title="Cryptography" size="large">
-  <Notification class="notification-result" title="Result" isSuccess={true} isOpen={isResponseNotificationOpen}>
+  <Notification title="Description" isInfo={true} isOpen={true}>
+    <p>Demonstrates how to use dedicated service on the network to hash a text provided, based on the algorithm selected</p>
+    <p>To use it, enter "serviceId" you received after deployment, text to hash, and choose cryptographic algorithm.</p>
+  </Notification>
+  <Notification title="Result" isSuccess={true} isOpen={isResponseNotificationOpen}>
     <p>Algorithm: {algorithmResponse}</p>
     <p>Hash(text): {hashedTextResponse}</p>
     <p>Text: {originalTextResponse}</p>
   </Notification>
-  <Notification class="notification-error" title="Error" isError={true} isOpen={!!errorMessage}>
+  <Notification title="Error" isError={true} isOpen={!!errorMessage}>
     {errorMessage}
   </Notification>
   <Form onSubmit={send}>
