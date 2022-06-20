@@ -1,0 +1,12 @@
+[package]
+name = "price"
+version = "1.0.0"
+edition = "2018"
+publish = false
+
+[[bin]]
+name = "price"
+path = "main.rs"
+
+[dependencies]
+marine-rs-sdk = "0.6.14"

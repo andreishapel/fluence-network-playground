@@ -1,0 +1,12 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "author": "Andrei Shapel <mail@shapel.me>",
+  "description": "Proof of concept of Fluence Network",
+  "scripts": {
+    "deploy": "scripts/deploy.sh",
+    "build": "scripts/build.sh",
+    "build:crypto": "npm run build crypto",
+    "build:price": "npm run build price"
+  }
+}

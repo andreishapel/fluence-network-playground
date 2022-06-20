@@ -1,0 +1,10 @@
+import "@fluencelabs/aqua-lib/builtin.aqua"
+
+service Price("Price"):
+  download(url: string) -> string
+
+func fetchPrices(nodeId: string, serviceId: string, url: string) -> string:
+  on nodeId:
+    Price serviceId
+    response <- Price.download(url)
+  <- response

@@ -77,25 +77,12 @@
   <Form onSubmit={send}>
     <Field label="Service ID" name="serviceId" />
     <Field label="Text to hash" name="text" />
-    <aside class="controls">
-      <header class="header">
-        Select cryptographic algorithm
-      </header>
-      <Radio options={algorithms}></Radio>
-    </aside>
+    <Radio title="Select cryptographic algorithm" options={algorithms}></Radio>
     <button class="button is-primary">Send</button>
   </Form>
 </Block>
 
 <style lang="scss">
-  .controls {
-    margin: 4px 0 10px 0;
-  }
-
-  .header {
-    font-weight: bold;
-  }
-
   .button {
     width: 200px;
     margin: 10px auto;

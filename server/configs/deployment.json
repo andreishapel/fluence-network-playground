@@ -3,7 +3,21 @@
     "modules": [
       {
         "name": "crypto",
-        "path": "./artifacts/crypto.wasm",
+        "path": "artifacts/crypto.wasm",
+        "mem_page_count": 1,
+        "logger_enabled": [true]
+      }
+    ]
+  },
+  "price": {
+    "modules": [
+      {
+        "name": "price",
+        "path": "artifacts/price.wasm",
+        "mountedBinaries": {
+          "curl": "/usr/bin/curl"
+        },
+        "mem_page_count": 1,
         "logger_enabled": [true]
       }
     ]
