@@ -5,6 +5,8 @@
   "description": "Proof of concept of Fluence Network",
   "scripts": {
     "deploy": "scripts/deploy.sh",
+    "deploy:crypto": "npm run deploy crypto",
+    "deploy:price": "npm run deploy price",
     "build": "scripts/build.sh",
     "build:crypto": "npm run build crypto",
     "build:price": "npm run build price"

@@ -10,5 +10,5 @@ name = "price"
 logger_enabled = false
 max_heap_size = "5 KiB"
 
-[module.mounted_binaries]
-curl = "/usr/bin/curl"
+  [module.mounted_binaries]
+  curl = "/usr/bin/curl"
