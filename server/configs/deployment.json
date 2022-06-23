@@ -4,7 +4,6 @@
       {
         "name": "crypto",
         "path": "artifacts/crypto.wasm",
-        "mem_page_count": 1,
         "logger_enabled": [true]
       }
     ]
@@ -14,10 +13,7 @@
       {
         "name": "price",
         "path": "artifacts/price.wasm",
-        "mountedBinaries": {
-          "curl": "/usr/bin/curl"
-        },
-        "mem_page_count": 1,
+        "mountedBinaries": [["curl", "/usr/bin/curl"]],
         "logger_enabled": [true]
       }
     ]
