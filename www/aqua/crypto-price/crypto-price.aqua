@@ -1,0 +1,15 @@
+import "@fluencelabs/aqua-lib/builtin.aqua"
+
+data Response:
+  crypto_currency: string
+  fiat_currency: string
+  price: f64
+
+service CryptoPrice("CryptoPrice"):
+  get_price(crypto_currency: string, fiat_currency: string) -> Response
+
+func getPrice(nodeId: string, serviceId: string, crypto_currency: string, fiat_currency: string) -> Response:
+  on nodeId:
+    CryptoPrice serviceId
+    response <- CryptoPrice.get_price(crypto_currency, fiat_currency)
+  <- response

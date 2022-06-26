@@ -1,0 +1,12 @@
+[package]
+name = "curl"
+version = "1.0.0"
+edition = "2018"
+publish = false
+
+[[bin]]
+name = "curl"
+path = "main.rs"
+
+[dependencies]
+marine-rs-sdk = "0.6.14"

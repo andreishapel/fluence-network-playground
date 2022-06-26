@@ -1,5 +1,6 @@
 <script>
   import noop from 'lodash/noop';
+  import capitalize from 'lodash/capitalize';
   import { onMount } from 'svelte';
   import Block from '@components/layout/block/block.svelte';
   import Field from '@components/form/field/field.svelte';
@@ -7,18 +8,18 @@
   import Radio from '@components/form/radio/radio.svelte';
   import Notification from '@components/notification/notification.svelte';
   import NetworkStore from '@store/network.store';
-  import { registerPrice, fetchPrices } from '@aqua/price/price';
+  import { registerCryptoPrice, getPrice } from '@aqua/crypto-price/crypto-price';
 
   const cryptoTokens = [{
     name: 'btc',
     id: 'btc',
     label: 'BTC',
-    value: 'btc',
+    value: 'bitcoin',
   }, {
     name: 'eth',
     id: 'eth',
     label: 'ETH',
-    value: 'eth',
+    value: 'ethereum',
   }];
   const fiatCurrencies = [{
     name: 'usd',
@@ -33,30 +34,51 @@
   }];
 
   $: networkStatus = NetworkStore.store;
+  let isResponseNotificationOpen = false;
+  let cryptoCurrencyResponse;
+  let fiatCurrencyResponse;
+  let priceResponse;
   let errorMessage;
 
   const send = async (data) => {
+    isResponseNotificationOpen = false;
+
     try {
       const { relayPeerId } = $networkStatus;
-      const { serviceId } = data;
-      const response = await fetchPrices(relayPeerId, serviceId, 'http://google.com');
-      console.log('@', data);
-      console.log('#', response);
+      const { serviceId, btc, eth, usd, eur } = data;
+
+      const cryptoCurrencyName = btc || eth;
+      const fiatCurrencyName = usd || eur;
+
+      const {
+        crypto_currency: cryptoCurrency,
+        fiat_currency: fiatCurrency,
+        price,
+      } = await getPrice(relayPeerId, serviceId, cryptoCurrencyName, fiatCurrencyName);
+
+      isResponseNotificationOpen = true;
+      cryptoCurrencyResponse = capitalize(cryptoCurrency);
+      fiatCurrencyResponse = fiatCurrency.toUpperCase();
+      priceResponse = price;
     } catch ({ message }) {
       errorMessage = message;
     }
   };
 
   onMount(() => {
-    registerPrice({
-      download: noop,
+    registerCryptoPrice({
+      get_price: noop,
     });
   });
 </script>
 
-<Block class="price" title="Price Oracle" size="large">
+<Block class="price" title="Cryptocurrencies Price" size="large">
   <Notification title="Description" isInfo={true} isOpen={true}>
-    <p>Description</p>
+    <p>Demonstrates how to use an oracle service to make an HTTP request to <a href="https://www.coingecko.com/" target="_blank">CoinGecko</a> to get cryptocurrency price in specified fiat currency.</p>
+    <p>To use it, enter the "serviceId" you received after deployment, and choose crypto currency and fiat currency.</p>
+  </Notification>
+  <Notification title="Result" isSuccess={true} isOpen={isResponseNotificationOpen}>
+    <p>{cryptoCurrencyResponse} token price in {fiatCurrencyResponse} is {priceResponse}.</p>
   </Notification>
   <Notification title="Error" isError={true} isOpen={!!errorMessage}>
     {errorMessage}

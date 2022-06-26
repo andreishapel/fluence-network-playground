@@ -6,9 +6,9 @@
   "scripts": {
     "deploy": "scripts/deploy.sh",
     "deploy:crypto": "npm run deploy crypto",
-    "deploy:price": "npm run deploy price",
+    "deploy:crypto-price": "npm run deploy crypto-price",
     "build": "scripts/build.sh",
     "build:crypto": "npm run build crypto",
-    "build:price": "npm run build price"
+    "build:crypto-price": "npm run build curl && npm run build crypto-price"
   }
 }
