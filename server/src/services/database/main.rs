@@ -18,7 +18,7 @@ pub struct Response {
 #[marine]
 pub fn create(table_name: String) -> String {
   let connection = marine_sqlite_connector::open(":memory:").unwrap();
-  let query = f!("CREATE TABLE users (first_name TEXT, last_name TEXT);");
+  let query = f!("CREATE TABLE wbjvelmlamg (first_name TEXT, last_name TEXT);");
 
   let sanitized_query = sql_lexer::sanitize_string(query);
   let connection_status = connection
@@ -37,7 +37,7 @@ pub fn create(table_name: String) -> String {
 #[marine]
 pub fn insert(table_name: String, first_name: String, last_name: String) -> String {
   let connection = marine_sqlite_connector::open(":memory:").unwrap();
-  let query = f!("INSERT INTO users VALUES ('FIRST_NAME', 'LAST_NAME');")
+  let query = f!("INSERT INTO wbjvelmlamg VALUES ('FIRST_NAME', 'LAST_NAME');")
     .replace("FIRST_NAME", &first_name)
     .replace("LAST_NAME", &last_name);
 
@@ -60,7 +60,7 @@ pub fn read(table_name: String, first_name: String) -> String {
   let mut a = String::from("");
 
   let connection = marine_sqlite_connector::open(":memory:").unwrap();
-  let query = f!("SELECT * FROM users WHERE first_name = ?")
+  let query = f!("SELECT * FROM wbjvelmlamg WHERE first_name = ?")
     .replace("TABLE_NAME", &table_name)
     .replace("FIRST_NAME", &first_name);
 
@@ -73,10 +73,11 @@ pub fn read(table_name: String, first_name: String) -> String {
       "".to_string();
     },
     Err(error) => {
-      error.to_string()
+      return error.to_string();
     },
   }
 
+  let mut cursor = connection_status.unwrap().cursor();
   cursor.bind(&[Value::String(first_name)]).unwrap();
   while let Some(row) = cursor.next().unwrap() {
     let row1 = row[0].as_string().unwrap();
