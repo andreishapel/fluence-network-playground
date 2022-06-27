@@ -1,14 +1,14 @@
 import "@fluencelabs/aqua-lib/builtin.aqua"
 
 service Database("Database"):
-  init(table_name: string) -> string
+  create(table_name: string) -> string
   insert(table_name: string, first_name: string, last_name: string) -> string
   read(table_name: string, first_name: string) -> string
 
-func init(nodeId: string, serviceId: string, table_name: string) -> string:
+func create(nodeId: string, serviceId: string, table_name: string) -> string:
   on nodeId:
     Database serviceId
-    response <- Database.init(table_name)
+    response <- Database.create(table_name)
   <- response
 
 func insert(nodeId: string, serviceId: string, table_name: string, first_name: string, last_name: string) -> string:

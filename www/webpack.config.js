@@ -9,6 +9,7 @@ const outputPath = path.resolve(__dirname, 'dist');
 
 const aliasSveltePath = path.resolve('node_modules', 'svelte');
 const aquaPath = path.resolve(__dirname, 'src', '_aqua');
+const aliasConstantsPath = path.resolve(__dirname, 'src', 'constants');
 const aliasComponentsPath = path.resolve(__dirname, 'src', 'components');
 const aliasHelpersPath = path.resolve(__dirname, 'src', 'helpers');
 const aliasStorePath = path.resolve(__dirname, 'src', 'store');
@@ -27,6 +28,7 @@ module.exports = {
     alias: {
       svelte: aliasSveltePath,
       '@aqua': aquaPath,
+      '@constants': aliasConstantsPath,
       '@components': aliasComponentsPath,
       '@helpers': aliasHelpersPath,
       '@store': aliasStorePath,

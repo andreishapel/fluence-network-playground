@@ -8,30 +8,8 @@
   import Radio from '@components/form/radio/radio.svelte';
   import Notification from '@components/notification/notification.svelte';
   import NetworkStore from '@store/network.store';
+  import { CRYPTO_CURRENCIES, FIAT_CURRENCIES } from '@constants/crypto-price';
   import { registerCryptoPrice, getPrice } from '@aqua/crypto-price/crypto-price';
-
-  const cryptoTokens = [{
-    name: 'btc',
-    id: 'btc',
-    label: 'BTC',
-    value: 'bitcoin',
-  }, {
-    name: 'eth',
-    id: 'eth',
-    label: 'ETH',
-    value: 'ethereum',
-  }];
-  const fiatCurrencies = [{
-    name: 'usd',
-    id: 'usd',
-    label: 'USD',
-    value: 'usd',
-  }, {
-    name: 'eur',
-    id: 'eur',
-    label: 'EUR',
-    value: 'eur',
-  }];
 
   $: networkStatus = NetworkStore.store;
   let isResponseNotificationOpen = false;
@@ -85,8 +63,8 @@
   </Notification>
   <Form onSubmit={send}>
     <Field label="Service ID" name="serviceId"></Field>
-    <Radio title="Select crypto currency" options={cryptoTokens}></Radio>
-    <Radio title="Select fiat currency" options={fiatCurrencies}></Radio>
+    <Radio title="Select crypto currency" options={CRYPTO_CURRENCIES}></Radio>
+    <Radio title="Select fiat currency" options={FIAT_CURRENCIES}></Radio>
     <button class="button is-primary">Send</button>
   </Form>
 </Block>
