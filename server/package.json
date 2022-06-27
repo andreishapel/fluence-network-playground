@@ -7,8 +7,10 @@
     "deploy": "scripts/deploy.sh",
     "deploy:crypto": "npm run deploy crypto",
     "deploy:crypto-price": "npm run deploy crypto-price",
+    "deploy:database": "npm run deploy database",
     "build": "scripts/build.sh",
     "build:crypto": "npm run build crypto",
-    "build:crypto-price": "npm run build curl && npm run build crypto-price"
+    "build:crypto-price": "npm run build curl && npm run build crypto-price",
+    "build:database": "npm run build database"
   }
 }

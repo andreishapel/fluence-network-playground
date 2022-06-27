@@ -22,5 +22,19 @@
         "logger_enabled": [true]
       }
     ]
+  },
+  "database": {
+    "modules": [
+      {
+        "name": "sqlite3",
+        "path": "artifacts/sqlite3.wasm",
+        "logger_enabled": [true]
+      },
+      {
+        "name": "database",
+        "path": "artifacts/database.wasm",
+        "logger_enabled": [true]
+      }
+    ]
   }
 }

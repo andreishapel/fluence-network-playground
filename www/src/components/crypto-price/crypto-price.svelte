@@ -72,7 +72,7 @@
   });
 </script>
 
-<Block class="price" title="Cryptocurrencies Price" size="large">
+<Block class="crypto-price" title="Cryptocurrencies Price" size="large">
   <Notification title="Description" isInfo={true} isOpen={true}>
     <p>Demonstrates how to use an oracle service to make an HTTP request to <a href="https://www.coingecko.com/" target="_blank">CoinGecko</a> to get cryptocurrency price in specified fiat currency.</p>
     <p>To use it, enter the "serviceId" you received after deployment, and choose crypto currency and fiat currency.</p>

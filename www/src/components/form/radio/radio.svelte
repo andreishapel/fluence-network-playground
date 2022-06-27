@@ -1,8 +1,17 @@
 <script>
+  import get from 'lodash/get';
+
   export let title;
   export let options;
+  export let selected = options[0].value;
+  export let onSelect;
 
-  let selected = options[0].value;
+  const select = (data) => {
+    if (onSelect) {
+      const value = get(data, ['target', 'value']);
+      onSelect(value);
+    }
+  };
 </script>
 
 <aside class={`controls ${$$props.class}`}>
@@ -12,7 +21,7 @@
   {#each options as {name, id, label, value}}
     <div>
       <label class="radio" for={id}>{label}</label>
-      <input name={name} id={id} value={value} bind:group={selected} type="radio">
+      <input name={name} id={id} value={value} bind:group={selected} on:change|preventDefault={select} type="radio">
     </div>
   {/each}
 </aside>

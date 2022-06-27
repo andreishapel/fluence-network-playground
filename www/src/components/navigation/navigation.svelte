@@ -8,6 +8,7 @@
   import Chat from '@components/chat/chat.svelte';
   import Crypto from '@components/crypto/crypto.svelte';
   import CryptoPrice from '@components/crypto-price/crypto-price.svelte';
+  import Database from '@components/database/database.svelte';
 
   const links = [{
     title: 'Chat',
@@ -18,6 +19,9 @@
   }, {
     title: 'Crypto Price',
     href: '/crypto-price',
+  }, {
+    title: 'Database',
+    href: '/database',
   }];
 
   $: isConnectionActive = NetworkStore.isConnectionActive();
@@ -43,6 +47,7 @@
       <Route path="chat" component={Chat} />
       <Route path="crypto" component={Crypto} />
       <Route path="crypto-price" component={CryptoPrice}></Route>
+      <Route path="database" component={Database}></Route>
     {:else}
       <p class="error">Please connect to the network first</p>
     {/if}
