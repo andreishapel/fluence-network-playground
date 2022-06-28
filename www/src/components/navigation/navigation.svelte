@@ -5,10 +5,12 @@
   import { globalHistory } from 'svelte-routing/src/history';
   import NetworkStore from '@store/network.store';
   import NavigationLink from '@components/navigation/navigation-link.svelte';
+  import BitcoinLedger from '@components/bitcoin-ledger/bitcoin-ledger.svelte';
   import Chat from '@components/chat/chat.svelte';
   import Crypto from '@components/crypto/crypto.svelte';
   import CryptoPrice from '@components/crypto-price/crypto-price.svelte';
   import Database from '@components/database/database.svelte';
+  import IPFS from '@components/ipfs/ipfs.svelte';
 
   const links = [{
     title: 'Chat',
@@ -22,6 +24,12 @@
   }, {
     title: 'Database',
     href: '/database',
+  }, {
+    title: 'Bitcoin Ledger',
+    href: '/bitcoin-ledger',
+  }, {
+    title: 'IPFS Integration',
+    href: '/ipfs',
   }];
 
   $: isConnectionActive = NetworkStore.isConnectionActive();
@@ -44,10 +52,12 @@
   </nav>
   <aside>
     {#if $isConnectionActive}
+      <Route path="bitcoin-ledger" component={BitcoinLedger}></Route>
       <Route path="chat" component={Chat} />
       <Route path="crypto" component={Crypto} />
       <Route path="crypto-price" component={CryptoPrice}></Route>
       <Route path="database" component={Database}></Route>
+      <Route path="ipfs" component={IPFS}></Route>
     {:else}
       <p class="error">Please connect to the network first</p>
     {/if}

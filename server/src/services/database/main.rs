@@ -1,6 +1,5 @@
 use marine_rs_sdk::marine;
 use marine_rs_sdk::module_manifest;
-use marine_sqlite_connector::{Value};
 use sql_lexer;
 
 #[macro_use]
@@ -18,11 +17,11 @@ pub struct Response {
 #[marine]
 pub fn create(table_name: String) -> String {
   let connection = marine_sqlite_connector::open(":memory:").unwrap();
-  let query = f!("CREATE TABLE wbjvelmlamg (first_name TEXT, last_name TEXT);");
+  let query = f!("CREATE TABLE IF NOT EXISTS TABLE_NAME (id INTEGER PRIMARY KEY AUTOINCREMENT, first_name TEXT, last_name TEXT);")
+    .replace("TABLE_NAME", &table_name);
 
   let sanitized_query = sql_lexer::sanitize_string(query);
-  let connection_status = connection
-    .execute(sanitized_query);
+  let connection_status = connection.execute(sanitized_query);
 
   match connection_status  {
     Ok(_) => {
@@ -37,13 +36,13 @@ pub fn create(table_name: String) -> String {
 #[marine]
 pub fn insert(table_name: String, first_name: String, last_name: String) -> String {
   let connection = marine_sqlite_connector::open(":memory:").unwrap();
-  let query = f!("INSERT INTO wbjvelmlamg VALUES ('FIRST_NAME', 'LAST_NAME');")
+  let query = f!("INSERT INTO TABLE_NAME VALUES ('FIRST_NAME', 'LAST_NAME');")
+    .replace("TABLE_NAME", &table_name)
     .replace("FIRST_NAME", &first_name)
     .replace("LAST_NAME", &last_name);
 
   let sanitized_query = sql_lexer::sanitize_string(query);
-  let connection_status = connection
-      .execute(sanitized_query);
+  let connection_status = connection.execute(sanitized_query);
 
   match connection_status  {
     Ok(_) => {
@@ -55,40 +54,35 @@ pub fn insert(table_name: String, first_name: String, last_name: String) -> Stri
   }
 }
 
-#[marine]
-pub fn read(table_name: String, first_name: String) -> String {
-  let mut a = String::from("");
-
-  let connection = marine_sqlite_connector::open(":memory:").unwrap();
-  let query = f!("SELECT * FROM wbjvelmlamg WHERE first_name = ?")
-    .replace("TABLE_NAME", &table_name)
-    .replace("FIRST_NAME", &first_name);
-
-  let sanitized_query = sql_lexer::sanitize_string(query);
-  let connection_status = connection
-      .prepare(sanitized_query);
-
-  match connection_status  {
-    Ok(_) => {
-      "".to_string();
-    },
-    Err(error) => {
-      return error.to_string();
-    },
-  }
-
-  let mut cursor = connection_status.unwrap().cursor();
-  cursor.bind(&[Value::String(first_name)]).unwrap();
-  while let Some(row) = cursor.next().unwrap() {
-    let row1 = row[0].as_string().unwrap();
-    let row2 = row[1].as_string().unwrap();
-
-    row1.to_string().push_str(row2);
-    a.to_string().push_str(row1);
-  }
-
-  a.to_string()
-}
+// #[marine]
+// pub fn read(table_name: String) -> String {
+//   let mut result = json::JsonValue::new_object();
+//
+//   let connection = marine_sqlite_connector::open(":memory:").unwrap();
+//   let query = f!("SELECT * FROM TABLE_NAME").replace("TABLE_NAME", &table_name);
+//   let sanitized_query = sql_lexer::sanitize_string(query);
+//
+//   let a = connection
+//    .iterate(sanitized_query, |pairs| {
+//      for &(column, value) in pairs.iter() {
+//        let column_name: String = column.to_string().into();
+//        let value_name: String = value.unwrap().to_string().into();
+//        result["column_name"] = "5".into();
+//      }
+//      true
+//    });
+//
+//   match a  {
+//     Ok(_) => {
+//       "".to_string()
+//     },
+//     Err(error) => {
+//       return error.to_string()
+//     },
+//   }
+//
+//   json::stringify(result.dump())
+// }
 //
 // #[marine]
 // pub fn update(first_name: String) -> bool {

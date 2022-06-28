@@ -1,4 +1,13 @@
 {
+  "bitcoin-ledger": {
+    "modules": [
+      {
+        "name": "bitcoin-ledger",
+        "path": "artifacts/bitcoin-ledger.wasm",
+        "logger_enabled": [true]
+      }
+    ]
+  },
   "crypto": {
     "modules": [
       {

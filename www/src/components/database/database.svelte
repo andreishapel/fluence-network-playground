@@ -37,7 +37,7 @@
         console.log('2', a2);
         break;
       case readAction:
-        const a3 = await read(relayPeerId, serviceId, tableName, firstName);
+        const a3 = await read(relayPeerId, serviceId, tableName);
         console.log('3', a3);
         break;
     }

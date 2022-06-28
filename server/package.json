@@ -5,12 +5,16 @@
   "description": "Proof of concept of Fluence Network",
   "scripts": {
     "deploy": "scripts/deploy.sh",
+    "deploy:bitcoin-ledger": "npm run deploy bitcoin-ledger",
     "deploy:crypto": "npm run deploy crypto",
     "deploy:crypto-price": "npm run deploy crypto-price",
     "deploy:database": "npm run deploy database",
+    "deploy:ipfs": "npm run deploy ipfs",
     "build": "scripts/build.sh",
+    "build:bitcoin-ledger": "npm run build bitcoin-ledger",
     "build:crypto": "npm run build crypto",
     "build:crypto-price": "npm run build curl && npm run build crypto-price",
-    "build:database": "npm run build database"
+    "build:database": "npm run build database",
+    "build:ipfs": "npm run build ipfs"
   }
 }
