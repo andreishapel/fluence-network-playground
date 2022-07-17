@@ -24,7 +24,6 @@
 
   onMount(() => {});
 </script>
-
 <Block class="ipfs" title="IPFS Integration" size="large">
   <Notification title="Description" isInfo={true} isOpen={true}>
     <p>Description</p>
@@ -37,7 +36,7 @@
   </Notification>
   <Form onSubmit={send}>
     <Field label="Service ID" name="serviceId"></Field>
-    <File label="Choose a file to upload to IPFS"></File>
+    <File label="Choose a PNG image to upload to IPFS"></File>
     <button class="button is-primary">Send</button>
   </Form>
 </Block>

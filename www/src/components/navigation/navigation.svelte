@@ -28,7 +28,7 @@
     title: 'Bitcoin Ledger',
     href: '/bitcoin-ledger',
   }, {
-    title: 'IPFS Integration',
+    title: 'IPFS',
     href: '/ipfs',
   }];
 

@@ -5,11 +5,11 @@
 	"description": "Proof of concept of Fluence Network",
 	"scripts": {
 		"postinstall": "copy-marine public",
-		"prestart": "npm run compile-aqua",
-		"prebuild": "npm run compile-aqua",
-		"build": "webpack --config webpack.config.js",
-		"start:dev": "webpack-dev-server",
-		"compile:aqua": "aqua --js -i ./aqua/ -o ./src/_aqua"
+		"prestart": "npm run build:aqua",
+		"prebuild": "npm run build:aqua",
+		"build:aqua": "aqua --js -i ./aqua/ -o ./src/_aqua",
+		"build:js": "webpack --config webpack.config.js",
+		"start": "webpack-dev-server"
 	},
 	"dependencies": {
 		"@fluencelabs/fluence": "^0.23.0",

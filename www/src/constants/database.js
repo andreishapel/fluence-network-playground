@@ -1,32 +1,26 @@
 export const CREATE_OPERATION = 'create';
 export const INSERT_OPERATION = 'insert';
 export const READ_OPERATION = 'read';
-export const UPDATE_OPERATION = 'update';
 export const DELETE_OPERATION = 'delete';
 
 export const OPERATIONS_ON_DATABASE = [{
-  name: 'createAction',
+  name: 'createDBAction',
   label: 'Create',
   id: CREATE_OPERATION,
   value: CREATE_OPERATION,
 }, {
-  name: 'insertAction',
+  name: 'readDBAction',
+  label: 'Read (ALL)',
+  id: READ_OPERATION,
+  value: READ_OPERATION,
+}, {
+  name: 'insertDBAction',
   label: 'Insert (by FIRST NAME and LAST NAME)',
   id: INSERT_OPERATION,
   value: INSERT_OPERATION,
 }, {
-  name: 'readAction',
-  label: 'Read (by FIRST NAME)',
-  id: READ_OPERATION,
-  value: READ_OPERATION,
-}, {
-  name: 'updateAction',
-  label: 'Update (by FIRST NAME)',
-  id: UPDATE_OPERATION,
-  value: UPDATE_OPERATION,
-}, {
-  name: 'deleteAction',
-  label: 'Delete (by FIRST NAME)',
+  name: 'deleteDBAction',
+  label: 'Delete (by ID)',
   id: DELETE_OPERATION,
   value: DELETE_OPERATION,
 }];

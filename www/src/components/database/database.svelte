@@ -5,51 +5,70 @@
   import Field from '@components/form/field/field.svelte';
   import Form from '@components/form/form/form.svelte';
   import Radio from '@components/form/radio/radio.svelte';
+  import Table from '@components/layout/table/table.svelte';
   import Notification from '@components/notification/notification.svelte';
   import NetworkStore from '@store/network.store';
-  import { CREATE_OPERATION, INSERT_OPERATION, READ_OPERATION, UPDATE_OPERATION, DELETE_OPERATION, OPERATIONS_ON_DATABASE } from '@constants/database';
-  import { registerDatabase, create, insert, read } from '@aqua/database/database';
+  import { CREATE_OPERATION, INSERT_OPERATION, READ_OPERATION, DELETE_OPERATION, OPERATIONS_ON_DATABASE } from '@constants/database';
+  import { registerDatabase, createAction, readAction, insertAction, deleteAction } from '@aqua/database/database';
 
   $: networkStatus = NetworkStore.store;
   $: isCreateOperationSelected = operationsOnDatabaseSelected === CREATE_OPERATION;
   $: isInsertOperationSelected = operationsOnDatabaseSelected === INSERT_OPERATION;
   $: isReadOperationSelected = operationsOnDatabaseSelected === READ_OPERATION;
-  $: isUpdateOperationSelected = operationsOnDatabaseSelected === UPDATE_OPERATION;
   $: isDeleteOperationSelected = operationsOnDatabaseSelected === DELETE_OPERATION;
-  $: isFirstNameRadioDisabled = isCreateOperationSelected && (!isInsertOperationSelected || !isReadOperationSelected || !isDeleteOperationSelected);
-  $: isLastNameRadioDisabled = isCreateOperationSelected && (isInsertOperationSelected || isReadOperationSelected || isDeleteOperationSelected);
+  $: isDatabaseIdFieldDidsabled = isCreateOperationSelected;
+  $: isIdFieldDisabled = !isDeleteOperationSelected;
+  $: isFirstNameRadioDisabled = !isInsertOperationSelected;
+  $: isLastNameRadioDisabled = !isInsertOperationSelected;
+  let tableColumns = ['ID', 'First name', 'Last Name'];
   let isResponseNotificationOpen = false;
-  let operationsOnDatabaseSelected;
+  let operationsOnDatabaseSelected = CREATE_OPERATION;
+  let databaseIdResponse;
+  let databaseEntitiesResponse;
   let errorMessage;
 
   const send = async (data) => {
-    const { relayPeerId } = $networkStatus;
-    const { serviceId, tableName, firstName, lastName, createAction, insertAction, readAction, updateAction, deleteAction } = data;
+    isResponseNotificationOpen = false;
+    databaseIdResponse = null;
+    databaseEntitiesResponse = null;
 
-    const databaseAction = createAction || insertAction || readAction || updateAction || deleteAction;
+    const { relayPeerId } = $networkStatus;
+    const { serviceId, databaseId, id, firstName, lastName, createDBAction, insertDBAction, readDBAction, deleteDBAction } = data;
+
+    const databaseIdAsInteger = Number(databaseId);
+    const idAsInteger = Number(id);
+
+    const databaseAction = createDBAction || insertDBAction || readDBAction || deleteDBAction;
     switch (databaseAction) {
-      case createAction:
-        const a1 = await create(relayPeerId, serviceId, tableName);
-        console.log('1', a1);
+      case createDBAction:
+        databaseIdResponse = (await createAction(relayPeerId, serviceId)).database_id;
         break;
-      case insertAction:
-        const a2 = await insert(relayPeerId, serviceId, tableName, firstName, lastName);
-        console.log('2', a2);
+      case readDBAction:
+        const a = await readAction(relayPeerId, serviceId, databaseIdAsInteger);
+        console.log('#', a);
         break;
-      case readAction:
-        const a3 = await read(relayPeerId, serviceId, tableName);
-        console.log('3', a3);
+      case insertDBAction:
+        databaseIdResponse = (await insertAction(relayPeerId, serviceId, databaseIdAsInteger, firstName, lastName)).database_id;
+        break;
+      case deleteDBAction:
+        databaseIdResponse = (await deleteAction(relayPeerId, serviceId, databaseIdAsInteger, idAsInteger)).database_id;
         break;
     }
+
+    isResponseNotificationOpen = true;
   };
 
-  const operationsOnDatabaseSelect = value => operationsOnDatabaseSelected = value;
+  const operationsOnDatabaseSelect = (value) => {
+    isResponseNotificationOpen = false;
+    operationsOnDatabaseSelected = value;
+  };
 
   onMount(() => {
     registerDatabase({
       create: noop,
-      insert: noop,
       read: noop,
+      insert: noop,
+      delete: noop,
     });
   });
 </script>
@@ -59,14 +78,27 @@
     <p>Description</p>
   </Notification>
   <Notification title="Result" isSuccess={true} isOpen={isResponseNotificationOpen}>
-    <p>Response.</p>
+    {#if isCreateOperationSelected }
+      <p>Table successfully created.</p>
+      <p>Database ID: {databaseIdResponse}</p>
+    {/if}
+    {#if isReadOperationSelected}
+      <Table columns={tableColumns} rows={databaseEntitiesResponse}></Table>
+    {/if}
+    {#if isInsertOperationSelected}
+      <p>Entity successfully added.</p>
+    {/if}
+    {#if isDeleteOperationSelected}
+      <p>Entity successfully deleted.</p>
+    {/if}
   </Notification>
   <Notification title="Error" isError={true} isOpen={!!errorMessage}>
     {errorMessage}
   </Notification>
   <Form onSubmit={send}>
     <Field label="Service ID" name="serviceId"></Field>
-    <Field label="Table name (DB value)" name="tableName"></Field>
+    <Field label="Database ID" name="databaseId" isDisabled={isDatabaseIdFieldDidsabled}></Field>
+    <Field label="ID (DB value)" name="id" isDisabled={isIdFieldDisabled}></Field>
     <Field label="First name (DB value)" name="firstName" isDisabled={isFirstNameRadioDisabled}></Field>
     <Field label="Last name (DB value)" name="lastName" isDisabled={isLastNameRadioDisabled}></Field>
     <Radio title="Select operation" options={OPERATIONS_ON_DATABASE} onSelect={operationsOnDatabaseSelect}></Radio>
@@ -77,6 +109,11 @@
 <style lang="scss">
   :global(.controls) {
     margin: 2px 0 !important;
+  }
+
+  :global(.table) {
+    width: 100%;
+    background: transparent;
   }
 
   .button {
