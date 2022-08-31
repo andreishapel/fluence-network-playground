@@ -8,6 +8,13 @@ module_manifest!();
 
 pub fn main() {}
 
+#[marine]
+pub struct Response {
+  pub algorithm: String,
+  pub hashed_text: String,
+  pub original_text: String,
+}
+
 fn hash_text_with_algorithm_selected(algorithm: &str, text: &str) -> String {
   match algorithm {
     "md5" => {
@@ -24,13 +31,6 @@ fn hash_text_with_algorithm_selected(algorithm: &str, text: &str) -> String {
     },
     _ => panic!("No algorithm selected"),
   }
-}
-
-#[marine]
-pub struct Response {
-  pub algorithm: String,
-  pub hashed_text: String,
-  pub original_text: String,
 }
 
 #[marine]

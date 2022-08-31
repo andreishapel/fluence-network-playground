@@ -11,7 +11,8 @@ pub fn main() {}
 #[marine]
 pub fn download(url: String) -> String {
   let request = vec!["-X".to_string(), "GET".to_string(), "-H".to_string(), "Accept: application/json".to_string(), url];
-  let result = unsafe { curl(request) };
+  let result = unsafe { curl (request) };
+
   let output = result.stdout;
   String::from_utf8(output).unwrap()
 }

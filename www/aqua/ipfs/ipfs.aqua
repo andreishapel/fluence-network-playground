@@ -1,0 +1,21 @@
+import "@fluencelabs/aqua-lib/builtin.aqua"
+import "@fluencelabs/aqua-ipfs/ipfs.aqua"
+
+data Response:
+  output: string
+  error: string
+
+service IPFS("IPFS"):
+  upload_image(ipfs_address: string, image_base64: string) -> Response
+
+func getIPFSAddress(nodeId: string) -> string:
+  on nodeId:
+    response <- Ipfs.get_external_api_multiaddr()
+  <- response.multiaddr
+
+func uploadImage(nodeId: string, serviceId: string, image_base64: string) -> Response:
+  on nodeId:
+    IPFS serviceId
+    ipfs_address <- getIPFSAddress(nodeId)
+    response <- IPFS.upload_image(ipfs_address, image_base64)
+  <- response

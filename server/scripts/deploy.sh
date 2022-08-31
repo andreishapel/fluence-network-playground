@@ -2,8 +2,8 @@
 set -o errexit -o nounset -o pipefail
 
 SERVICE=$1
-SECRET_KEY=${2-Pfw9nfmCAVVONZAIZAnzyWMNTnKgn+3u3J/p7xSVxw8=}
-ADDRESS=${3-/dns4/kras-00.fluence.dev/tcp/19001/wss/p2p/12D3KooWR4cv1a8tv7pps4HH6wePNaK6gf1Hww5wcCMzeWxyNw51}
+SECRET_KEY=${2-NAB5rGwT4qOEB+6nLQawkTfCOV2eiFSjgQK8bfEdZXY=}
+ADDRESS=${3-/ip4/127.0.0.1/tcp/9990/ws/p2p/12D3KooWHBG9oaVx4i3vi6c1rSBUm7MLBmyGmmbHoZ23pmjDCnvK}
 
 aqua remote deploy_service \
   --addr $ADDRESS \

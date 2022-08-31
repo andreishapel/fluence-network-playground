@@ -36,12 +36,30 @@
     "modules": [
       {
         "name": "sqlite3",
-        "path": "artifacts/sqlite3.wasm",
-        "logger_enabled": [true]
+        "logger_enabled": [true],
+        "config": {
+          "preopened_files": ["/tmp"],
+          "mapped_dirs": { "tmp": "/tmp" }
+        }
       },
       {
         "name": "database",
         "path": "artifacts/database.wasm",
+        "logger_enabled": [true]
+      }
+    ]
+  },
+  "ipfs": {
+    "modules": [
+      {
+        "name": "ipfs_adapter",
+        "path": "artifacts/ipfs_adapter.wasm",
+        "mounted_binaries": [["ipfs", "/usr/bin/ipfs"]],
+        "logger_enabled": [true]
+      },
+      {
+        "name": "ipfs",
+        "path": "artifacts/ipfs.wasm",
         "logger_enabled": [true]
       }
     ]

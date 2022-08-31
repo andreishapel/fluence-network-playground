@@ -1,15 +1,12 @@
 [package]
-name = "ipfs"
+name = "ipfs-adapter"
 version = "1.0.0"
 edition = "2018"
 publish = false
 
 [[bin]]
-name = "ipfs"
+name = "ipfs_adapter"
 path = "main.rs"
 
 [dependencies]
 marine-rs-sdk = "0.6.14"
-arrayref = "0.3.6"
-rand = "0.8.5"
-rand_chacha = "0.3.1"

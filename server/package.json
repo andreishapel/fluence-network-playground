@@ -15,6 +15,6 @@
     "build:crypto": "npm run build crypto",
     "build:crypto-price": "npm run build curl && npm run build crypto-price",
     "build:database": "npm run build database",
-    "build:ipfs": "npm run build ipfs"
+    "build:ipfs": "npm run build ipfs-adapter && npm run build ipfs"
   }
 }

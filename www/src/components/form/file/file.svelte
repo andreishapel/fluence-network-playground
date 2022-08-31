@@ -1,30 +1,33 @@
 <script>
   export let label;
-  export let name;
-  // export let onSelect;
 
-  $: !!file && a();
-  let file;
+  let selectedFileName = 'Not selected';
 
-  const a = () => {
-    console.log('#', file);
+  const handleSelect = (event) => {
+    const {
+      target: {
+        files,
+      },
+    } = event
+
+    const firstFile = files[0];
+    selectedFileName = firstFile.name;
   };
 </script>
 
-<div class="file is-normal has-name">
-  {file}
+<div class="file has-name">
   <label class="file-label">
-    <input class="file-input" name={name} type="file" accept="image/png" bind:files={file}>
+    <input class="file-input" type="file" accept="image/png" multiple="false" name="upload" on:change={handleSelect}>
     <span class="file-cta">
       <span class="file-icon">
         <i class="fas fa-upload"></i>
       </span>
       <span class="file-label">
-        {label}
+        { label }
       </span>
     </span>
     <span class="file-name">
-      Screen Shot 2017-07-29 at 15.54.25.png
+      { selectedFileName }
     </span>
   </label>
 </div>

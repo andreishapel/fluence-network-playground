@@ -5,9 +5,10 @@
   import Block from '@components/layout/block/block.svelte';
   import NetworkConnectorConnectButton from '@components/network-connector/network-connector-connect-button.svelte';
   import NetworkConnectorDropdown from '@components/network-connector/network-connector-dropdown';
+  import { LOCAL_PEER_IDS } from '@constants/local-peer-ids';
 
   const statusPooling = NetworkStore.useStatusPooling();
-  const peers = Object.values(krasnodar);
+  const peers = [...LOCAL_PEER_IDS, ...Object.values(krasnodar)];
 
   $: networkStatus = NetworkStore.store;
   $: isConnectionActive = NetworkStore.isConnectionActive();
